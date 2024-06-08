@@ -1,0 +1,37 @@
+CREATE TABLE INC_BOOK
+( 	ID 	        INTEGER 	not null,
+	ISBN 	        varchar2(10),
+	TITLE 	        varchar2(100),
+ 	AUTHOR 	        varchar2(100),
+        YEAR 	        varchar2(10),
+        CATEGORY        varchar2(40),
+	CONSTRAINT INC_BOOK_PK PRIMARY KEY (ID)
+);
+
+
+// create sequence number for auto increment number //
+
+CREATE SEQUENCE "ID"
+START WITH 1
+INCREMENT BY 1
+CACHE 10;
+
+INSERT INTO INC_BOOK (ID,ISBN,TITLE,AUTHOR,YEAR,CATEGORY) VALUES (ID.nextval,'a','b','c','d','e');
+
+CREATE TABLE INC_SUPPLIER
+( 	SUPPLIER_ID 	    varchar2(10) not null,
+	BOOK_ID 	    varchar2(10),
+	NAME 	            varchar2(100),
+ 	EMAIL 	            varchar2(100),
+	CONSTRAINT INC_SUPPLIER_PK PRIMARY KEY (SUPPLIER_ID)
+);
+
+CREATE OR REPLACE FUNCTION A (v_Title IN VARCHAR2)
+RETURN VARCHAR2
+IS
+v_Result VARCHAR2(100);
+BEGIN
+  SELECT TITLE INTO v_Result FROM INC_BOOK WHERE TITLE=v_Title;
+  DBMS_OUTPUT.PUT_LINE(v_Result); 
+  RETURN v_Result;
+END A;
